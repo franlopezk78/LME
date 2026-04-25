@@ -3,13 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <!-- Forzamos que no guarde cache de la estructura básica -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
     <title>Los Mandaos de Evi</title>
-    <link rel="manifest" href="manifest.json">
+    <link rel="manifest" href="manifest.json?v=4.0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css?v=4.0">
 </head>
 <body>
     <div id="app" class="edit-mode">
@@ -73,9 +77,14 @@
 
     <div id="error-toast" class="toast hidden"></div>
 
-    <script src="app.js"></script>
+    <script src="app.js?v=4.0"></script>
     <script>
-        if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js');
+        // Forzamos registro con nueva versión
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('sw.js?v=4.0').then(reg => {
+                reg.update(); // Obliga a buscar cambios inmediatamente
+            });
+        }
         lucide.createIcons();
     </script>
 </body>
