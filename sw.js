@@ -1,4 +1,4 @@
-const CACHE_NAME = 'voiceshop-v3.0'; 
+const CACHE_NAME = 'lme-v2.0'; 
 const ASSETS = [
   './',
   './index.html',
