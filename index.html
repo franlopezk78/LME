@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Los Mandaos de Evi</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="app" class="edit-mode">
+        <header>
+            <div class="header-top">
+                <h1>Los Mandaos de <span class="accent">Evi</span></h1>
+                <div class="actions">
+                    <button class="share-btn" onclick="shareWhatsApp()" title="Compartir">
+                        <i data-lucide="share-2"></i>
+                    </button>
+                    <button class="reset-btn" onclick="resetAll()" title="Nueva Lista">
+                        <i data-lucide="refresh-cw"></i>
+                    </button>
+                    <button id="mode-toggle" class="mode-btn" onclick="toggleMode()">
+                        <span class="edit-only">¡A comprar! <i data-lucide="shopping-basket"></i></span>
+                        <span class="shop-only">Editar lista <i data-lucide="edit-3"></i></span>
+                    </button>
+                </div>
+            </div>
+            <div class="tabs edit-only">
+                <button id="tab-today" class="tab-btn active" onclick="setTab('today')">Hoy</button>
+                <button id="tab-tomorrow" class="tab-btn" onclick="setTab('tomorrow')">Mañana</button>
+                <button id="tab-catalog" class="tab-btn" onclick="toggleCatalog()">Catálogo <i data-lucide="layout-grid"></i></button>
+            </div>
+            <div class="shop-header shop-only">
+                <p id="shop-stats">0 comprados de 0</p>
+                <button id="finish-btn" class="clear-checked hidden" onclick="clearChecked()">SACABÓ <i data-lucide="check-circle"></i></button>
+            </div>
+        </header>
+
+        <section id="catalog-area" class="catalog-area hidden edit-only"></section>
+
+        <main id="list-container">
+            <div id="empty-state" class="empty-state">
+                <i data-lucide="shopping-cart" class="empty-icon"></i>
+                <p>Lista vacía</p>
+            </div>
+            <ul id="shopping-list" class="shopping-list"></ul>
+        </main>
+
+        <div id="voice-overlay" class="voice-overlay hidden">
+            <div class="voice-card">
+                <div class="pulse-ring"></div>
+                <i data-lucide="mic" class="mic-icon-large"></i>
+                <p id="transcript-preview"></p>
+                <button onclick="stopListening()" class="close-overlay">Cancelar</button>
+            </div>
+        </div>
+
+        <nav class="bottom-nav edit-only">
+            <div class="input-group">
+                <input type="text" id="manual-input" placeholder="Añadir producto...">
+                <button onclick="addManualItem()" class="add-btn"><i data-lucide="plus"></i></button>
+            </div>
+            <button id="mic-trigger" class="mic-btn"><i data-lucide="mic"></i></button>
+        </nav>
+    </div>
+
+    <div id="error-toast" class="toast hidden"></div>
+
+    <script src="app.js"></script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('sw.js');
+        }
+        lucide.createIcons();
+    </script>
+</body>
+</html>
